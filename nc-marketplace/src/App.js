@@ -1,10 +1,14 @@
-import "./App.css";
-import { BrowserRouter as Router } from "react-router-dom";
-import { Link } from "react-router-dom";
-import ProductList from "./Components/ProductList";
+import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { useState } from 'react';
+import ProductList from './Components/ProductList';
+import ProductPage from './Components/ProductPage';
+import Nav from './Components/Nav';
+import ListProduct from './Components/ListProduct';
 
 function App() {
-
+  const [categories, setCategories] = useState([]);
+  const [selectedCat, setSelectedCat] = useState('');
   return (
     <Router>
       {/* <div className="App"> */}
@@ -12,18 +16,29 @@ function App() {
         <h1>NC Marketplace</h1>
         <h3>Your one-stop-shop for knic-knacs and tic-tacs</h3>
       </header>
-      <nav className="Nav">
-        <Link className="Nav-link" to="/">
-          Home
-        </Link>
-        <Link className="Nav-link" to="/about">
-          About
-        </Link>
-        <Link className="Nav-link" to="/topics">
-          Topics
-        </Link>
-      </nav>
-      <ProductList />
+      <Nav />
+      <Switch>
+        <Route path="/products" exact>
+          <ProductList
+            categories={categories}
+            selectedCat={selectedCat}
+            setSelectedCat={setSelectedCat}
+            setCategories={setCategories}
+          />
+        </Route>
+        <Route path="/products/:product_id">
+          <ProductPage />
+        </Route>
+        <Route path="/sell">
+          <ListProduct
+            categories={categories}
+            selectedCat={selectedCat}
+            setSelectedCat={setSelectedCat}
+            setCategories={setCategories}
+          />
+        </Route>
+      </Switch>
+
       {/* </div> */}
     </Router>
   );
