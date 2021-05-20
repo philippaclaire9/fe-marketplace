@@ -24,8 +24,18 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.Nav {
+  /* text-decoration: #282c34; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+.Nav-link {
+  text-decoration: #282c34;
+  font-size: calc(10px + 2vmin);
+  padding: 1em;
 }
 .product-list {
   display: flex;
@@ -38,7 +48,7 @@
   width: 10em;
   height: 10em;
   object-fit: cover;
-   margin: 1em;
+  margin: 1em;
 }
 /* .container {
   display: grid;
@@ -49,7 +59,6 @@
     "sidebar . main main"
     "footer footer footer footer";
 } */
-
 
 @keyframes App-logo-spin {
   from {
