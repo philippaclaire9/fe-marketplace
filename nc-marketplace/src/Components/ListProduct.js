@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import CategoriesDropdown from './CategoriesDropdown';
 import { fetchCategories } from '../api';
 import { postItem } from '../api';
+import { UserContext } from '../context/user';
 
 const ListProduct = ({
   categories,
@@ -13,23 +14,30 @@ const ListProduct = ({
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [imageUrl, setImageUrl] = useState('');
+  const [hasPosted, setHasPosted] = useState(false);
+
+  // const user = useContext(UserContext);
+  // console.log(user);
+  //absolutely unecessary but there to remind you!
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    postItem(itemName, description, price, imageUrl, selectedCat).then(() => {
-      console.log('success!').catch((err) => {
-        console.log(err);
-      });
-    });
+    postItem(itemName, description, imageUrl, price, selectedCat).then(
+      (response) => {
+        setHasPosted(true);
+      }
+    );
 
-    console.log(itemName, description, price, imageUrl, selectedCat);
+    console.log(itemName, description, imageUrl, price, selectedCat);
   };
 
   useEffect(() => {
     fetchCategories().then((categories) => setCategories(categories));
   }, [setCategories]);
 
-  return (
+  return hasPosted ? (
+    <p>Success! Your item has been listed! </p>
+  ) : (
     <form onSubmit={(event) => handleSubmit(event)}>
       <label htmlFor="item_name">Product Name:</label>
       <input

@@ -36,5 +36,19 @@ export const postItem = (
   description,
   img_url,
   price,
-  category
-) => {};
+  category_name
+) => {
+  console.log({ item_name, description, img_url, price, category_name });
+
+  return axios
+    .post('https://nc-marketplace.herokuapp.com/api/items', {
+      item_name,
+      description,
+      img_url,
+      price,
+      category_name,
+    })
+    .then((response) => {
+      return response.data.item;
+    });
+};
