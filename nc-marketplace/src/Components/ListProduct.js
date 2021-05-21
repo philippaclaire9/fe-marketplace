@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import CategoriesDropdown from './CategoriesDropdown';
 import { fetchCategories } from '../api';
+import { postItem } from '../api';
 
 const ListProduct = ({
   categories,
@@ -13,8 +14,15 @@ const ListProduct = ({
   const [price, setPrice] = useState('');
   const [imageUrl, setImageUrl] = useState('');
 
-  const handleSubmit = () => {
-    console.log(itemName, description, price, selectedCat);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    postItem(itemName, description, price, imageUrl, selectedCat).then(() => {
+      console.log('success!').catch((err) => {
+        console.log(err);
+      });
+    });
+
+    console.log(itemName, description, price, imageUrl, selectedCat);
   };
 
   useEffect(() => {
@@ -22,7 +30,7 @@ const ListProduct = ({
   }, [setCategories]);
 
   return (
-    <form onSubmit={() => handleSubmit()}>
+    <form onSubmit={(event) => handleSubmit(event)}>
       <label htmlFor="item_name">Product Name:</label>
       <input
         id="item_name"

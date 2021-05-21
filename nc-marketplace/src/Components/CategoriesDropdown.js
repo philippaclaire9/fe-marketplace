@@ -1,8 +1,6 @@
 //import { useState } from 'react';
 
 const CategoriesDropdown = ({ categories, selectedCat, setSelectedCat }) => {
-  // const [selected, setSelected] = useState('');
-
   return (
     <section>
       <label htmlFor="categories">Select category</label>

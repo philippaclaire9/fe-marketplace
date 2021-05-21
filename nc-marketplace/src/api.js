@@ -30,3 +30,11 @@ export const fetchCategories = () => {
       return response.data.categories;
     });
 };
+
+export const postItem = (
+  item_name,
+  description,
+  img_url,
+  price,
+  category
+) => {};
